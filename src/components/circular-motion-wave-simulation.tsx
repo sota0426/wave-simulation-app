@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { InlineMath, BlockMath } from 'react-katex'

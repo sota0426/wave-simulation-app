@@ -1,5 +1,5 @@
 "use client" // Next.jsでクライアントサイドで実行されることを示す
-
+import React from 'react'
 import { useState , useMemo } from 'react'
 import { motion, useAnimationFrame } from 'framer-motion'
 import { Slider } from "@/components/ui/slider"
@@ -53,7 +53,7 @@ export default function WaveInterferenceCircularMotion() {
   }
 
   // 波や円のポイントをメモ化して計算を効率化
-  const [wave1Points, wave2Points, combinedWavePoints, circle1Point, circle2Point, combinedCirclePoint] = useMemo(() => {
+ const [wave1Points, wave2Points, combinedWavePoints, circle1Point, circle2Point, combinedCirclePoint] = useMemo(() => {
     const w1 = getWavePoints(frequency1, phase1) // 波1のポイント
     const w2 = getWavePoints(frequency2, phase2) // 波2のポイント
     const cw = w1.map((p, i) => ({ x: p.x, y: p.y + w2[i].y })) // 波1と波2を合成
@@ -61,7 +61,7 @@ export default function WaveInterferenceCircularMotion() {
     const c2 = getCirclePoint(frequency2, phase2) // 円2のポイント
     const cc = { x: c1.x + c2.x, y: c1.y + c2.y } // 円1と円2を合成
     return [w1, w2, cw, c1, c2, cc]
-  }, [frequency1, frequency2, phase1, phase2, time, scale])
+  }, [frequency1, frequency2, phase1, phase2, time, scale, **getWavePoints, getCirclePoint**]) // useMemoの依存関係にgetWavePointsとgetCirclePointを追加
 
   // 波や円の色を取得する関数
   const getColor = (index: number) => {

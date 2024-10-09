@@ -1,8 +1,8 @@
 "use client"
-
+import React from 'react';
 import { useState, Suspense, lazy } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 const CircularMotionWaveSimulationComponent = lazy(() => import('@/components/circular-motion-wave-simulation'))
 const WaveInterferenceCircularMotion = lazy(() => import('@/components/wave-interference-circular-motion'))
 const CombinedSimulation = lazy(()=>import('@/components/wave-motion/wave-motion'))
