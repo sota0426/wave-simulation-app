@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.10.1",
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slider": "^1.2.1",
     "@react-three/drei": "^9.114.3",
@@ -13,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "class-variance-authority": "^0.7.0",
     "css-loader": "^7.1.2",
+    "firebase": "^10.14.0",
     "framer-motion": "^11.11.5",
     "katex": "^0.16.11",
     "next": "^14.2.15",
@@ -30,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-  "build": "cross-env GENERATE_SOURCEMAP=false EXTEND_ESLINT=false react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "next dev"
