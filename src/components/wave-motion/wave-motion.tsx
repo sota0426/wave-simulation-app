@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import WaveSimulation from './wave-motion-simuration'
+import WaveSimulation from './wave-motion-simulation'
 import RefractionWaveSimulation from './wave-motion-refraction'
 
 export default function CombinedSimulation() {

@@ -1,23 +1,20 @@
 "use client"
-import React from 'react';
-import { useState, Suspense, lazy } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-const CircularMotionWaveSimulationComponent = lazy(() => import('@/components/circular-motion-wave-simulation'))
-const WaveInterferenceCircularMotion = lazy(() => import('@/components/wave-interference-circular-motion'))
-const CombinedSimulation = lazy(()=>import('@/components/wave-motion/wave-motion'))
+import React, { useState } from 'react';
+import { Button } from '../components/ui/button'
+import { Card, CardContent } from '../components/ui/card'
+import CircularMotionWaveSimulationComponent from '../components/circular-motion-wave-simulation';
+import WaveInterferenceCircularMotion from '../components/wave-interference-circular-motion'
+import CombinedSimulation from '../components/wave-motion/wave-motion'
 
 export default function Page() {
-  const [selectedPage, setSelectedPage] = useState<'circular' | 'interference' | 'waveMotion'|'waveReflection'>('circular')
+  const [selectedPage, setSelectedPage] = useState<'circular' | 'interference' | 'waveMotion' | 'waveReflection'>('circular');
 
   return (
     <>
       <Card className="">
-        <CardContent className="p-2 bg-stone-3
-        
-        00">
+        <CardContent className="p-2 bg-stone-300">
           <div className="flex justify-center space-x-2">
-          <Button 
+            <Button 
               onClick={() => setSelectedPage('waveMotion')}
               variant={selectedPage === 'waveMotion' ? 'outline' : 'default'}
             >
@@ -35,16 +32,14 @@ export default function Page() {
             >
               波の干渉と円運動
             </Button>
-
           </div>
         </CardContent>
       </Card>
       
-      <Suspense fallback={<div>Loading...</div>}>
-        {selectedPage === 'circular' && <CircularMotionWaveSimulationComponent />}
-        {selectedPage === 'interference' && <WaveInterferenceCircularMotion />}
-        {selectedPage === 'waveMotion' && <CombinedSimulation />}        
-      </Suspense>
+      {/* Suspenseを削除し、通常のレンダリング */}
+      {selectedPage === 'circular' && <CircularMotionWaveSimulationComponent />}
+      {selectedPage === 'interference' && <WaveInterferenceCircularMotion />}
+      {selectedPage === 'waveMotion' && <CombinedSimulation />}
     </>
-  )
+  );
 }

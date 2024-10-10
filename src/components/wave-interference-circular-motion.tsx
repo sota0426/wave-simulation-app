@@ -1,12 +1,11 @@
 "use client" // Next.jsでクライアントサイドで実行されることを示す
 import React from 'react'
-import { useState , useMemo } from 'react'
+import { useState , useMemo ,useCallback } from 'react'
 import { motion, useAnimationFrame } from 'framer-motion'
-import { Slider } from "@/components/ui/slider"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-
+import { Slider } from "../components/ui/slider"
+import { Label } from "../components/ui/label"
+import { Card, CardContent } from "../components/ui/card"
+import { Button } from "../components/ui/button"
 // WaveInterferenceCircularMotionコンポーネントを定義
 export default function WaveInterferenceCircularMotion() {
   // 各種パラメータをuseStateで管理
@@ -35,39 +34,33 @@ export default function WaveInterferenceCircularMotion() {
   })
 
   // 周波数と位相を元に波のポイントを生成する関数
-  const getWavePoints = (freq: number, phase: number) => {
+  const getWavePoints = useCallback((freq: number, phase: number) => {
     return Array.from({ length: numPoints }, (_, i) => {
       const x = (i / (numPoints - 1) - 0.5) * waveWidth // 波のX座標
       const y = circleRadius * Math.sin(2 * Math.PI * freq * (x / waveWidth / scale / 10 - time) + phase * Math.PI / 180) // 波のY座標をサイン波で計算
       return { x, y }
     })
-  }
+  }, [scale, time])
 
-  // 円運動の座標を計算する関数
-  const getCirclePoint = (freq: number, phase: number) => {
-    const angle = -2 * Math.PI * freq  * time + phase * Math.PI / 180 + Math.PI *1.98 // 円運動の角度を計算
+  // 円運動の座標を計算する関数をuseCallbackでメモ化
+  const getCirclePoint = useCallback((freq: number, phase: number) => {
+    const angle = -2 * Math.PI * freq * time + phase * Math.PI / 180 + Math.PI * 1.98 // 円運動の角度を計算
     return {
       x: circleRadius * Math.cos(angle), // X座標
       y: circleRadius * Math.sin(angle)  // Y座標
     }
-  }
+  }, [time])
 
-  // 波や円のポイントをメモ化して計算を効率化
+ // 波や円のポイントをメモ化して計算を効率化
  const [wave1Points, wave2Points, combinedWavePoints, circle1Point, circle2Point, combinedCirclePoint] = useMemo(() => {
-    const w1 = getWavePoints(frequency1, phase1) // 波1のポイント
-    const w2 = getWavePoints(frequency2, phase2) // 波2のポイント
-    const cw = w1.map((p, i) => ({ x: p.x, y: p.y + w2[i].y })) // 波1と波2を合成
-    const c1 = getCirclePoint(frequency1, phase1) // 円1のポイント
-    const c2 = getCirclePoint(frequency2, phase2) // 円2のポイント
-    const cc = { x: c1.x + c2.x, y: c1.y + c2.y } // 円1と円2を合成
-    return [w1, w2, cw, c1, c2, cc]
-  }, [frequency1, frequency2, phase1, phase2, time, scale, **getWavePoints, getCirclePoint**]) // useMemoの依存関係にgetWavePointsとgetCirclePointを追加
-
-  // 波や円の色を取得する関数
-  const getColor = (index: number) => {
-    const colors = ["#FF0000", "#0000FF", "#00FF00"] // 色リスト（赤、青、緑）
-    return colors[index]
-  }
+  const w1 = getWavePoints(frequency1, phase1) // 波1のポイント
+  const w2 = getWavePoints(frequency2, phase2) // 波2のポイント
+  const cw = w1.map((p, i) => ({ x: p.x, y: p.y + w2[i].y })) // 波1と波2を合成
+  const c1 = getCirclePoint(frequency1, phase1) // 円1のポイント
+  const c2 = getCirclePoint(frequency2, phase2) // 円2のポイント
+  const cc = { x: c1.x + c2.x, y: c1.y + c2.y } // 円1と円2を合成
+  return [w1, w2, cw, c1, c2, cc]
+}, [frequency1, frequency2, phase1, phase2, getWavePoints, getCirclePoint]) 
 
   // 円を描画する関数（動きのある円を`motion.circle`で表現）
   const renderCircle = (point: { x: number, y: number }, color: string, radius: number) => (
@@ -81,6 +74,12 @@ export default function WaveInterferenceCircularMotion() {
     />
   )
   
+   // 波や円の色を取得する関数
+   const getColor = (index: number) => {
+    const colors = ["#FF0000", "#0000FF", "#00FF00"] // 色リスト（赤、青、緑）
+    return colors[index]
+  }
+
   // 波を描画する関数（波のパスを描画）
   const renderWave = (points: { x: number, y: number }[], color: string, radius:number) => (
     <path
