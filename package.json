@@ -6,6 +6,7 @@
     "@chakra-ui/react": "^2.10.1",
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@genkit-ai/ai": "^0.5.16",
+    "@genkit-ai/firebase": "^0.5.16",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slider": "^1.2.1",
     "@react-three/drei": "^9.114.3",
