@@ -1,3 +1,5 @@
+import * as z from "zod";
+
 // Import the Genkit core libraries and plugins.
 import {generate} from "@genkit-ai/ai";
 import {configureGenkit} from "@genkit-ai/core";
