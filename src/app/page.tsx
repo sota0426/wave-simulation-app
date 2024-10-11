@@ -1,34 +1,15 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Button } from '../components/ui/button'
 import { Card, CardContent } from '../components/ui/card'
-import CircularMotionWaveSimulationComponent from '../components/circular-motion-wave-simulation';
-import WaveInterferenceCircularMotion from '../components/wave-interference-circular-motion'
-import CombinedSimulation from '../components/wave-motion/wave-motion'
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBM04DHJP4cttqBxjoyM_kSMwn7mrBUCF0",
-  authDomain: "physics-wave-app.firebaseapp.com",
-  projectId: "physics-wave-app",
-  storageBucket: "physics-wave-app.appspot.com",
-  messagingSenderId: "259449018912",
-  appId: "1:259449018912:web:b06e54a7a5514ea0543a45",
-  measurementId: "G-H8FFGGYMS6"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// 遅延読み込みを使用してコンポーネントを定義
+const CircularMotionWaveSimulationComponent = lazy(() => import('../components/circular-motion-wave-simulation'));
+const WaveInterferenceCircularMotion = lazy(() => import('../components/wave-interference-circular-motion'));
+const CombinedSimulation = lazy(() => import('../components/wave-motion/wave-motion'));
 
 export default function Page() {
-  const [selectedPage, setSelectedPage] = useState<'circular' | 'interference' | 'waveMotion' | 'waveReflection'>('circular');
+  const [selectedPage, setSelectedPage] = useState<'circular' | 'interference' | 'waveMotion'>('circular');
 
   return (
     <>
@@ -56,11 +37,13 @@ export default function Page() {
           </div>
         </CardContent>
       </Card>
-      
-      {/* Suspenseを削除し、通常のレンダリング */}
-      {selectedPage === 'circular' && <CircularMotionWaveSimulationComponent />}
-      {selectedPage === 'interference' && <WaveInterferenceCircularMotion />}
-      {selectedPage === 'waveMotion' && <CombinedSimulation />}
+
+      {/* Suspense を使用してフォールバックを表示 */}
+      <Suspense fallback={<div>Loading...</div>}>
+        {selectedPage === 'circular' && <CircularMotionWaveSimulationComponent />}
+        {selectedPage === 'interference' && <WaveInterferenceCircularMotion />}
+        {selectedPage === 'waveMotion' && <CombinedSimulation />}
+      </Suspense>
     </>
   );
 }
