@@ -39,6 +39,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
