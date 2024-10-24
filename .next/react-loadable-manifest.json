@@ -1,35 +1,30 @@
 {
   "..\\node_modules\\@react-three\\drei\\core\\VideoTexture.js -> hls.js": {
-    "id": null,
+    "id": "..\\node_modules\\@react-three\\drei\\core\\VideoTexture.js -> hls.js",
     "files": []
   },
   "..\\node_modules\\@react-three\\drei\\web\\FaceLandmarker.js -> @mediapipe/tasks-vision": {
-    "id": null,
+    "id": "..\\node_modules\\@react-three\\drei\\web\\FaceLandmarker.js -> @mediapipe/tasks-vision",
     "files": []
   },
   "app\\page.tsx -> ../components/circular-motion-wave-simulation": {
-    "id": 107,
+    "id": "app\\page.tsx -> ../components/circular-motion-wave-simulation",
     "files": [
-      "static/css/9f5495ee5a25f1b1.css",
-      "static/chunks/bdfe9574.d00edddb54799286.js",
-      "static/chunks/107.c079ef3f5ee20fc7.js"
+      "static/css/_app-pages-browser_src_components_circular-motion-wave-simulation_tsx.css",
+      "static/chunks/_app-pages-browser_src_components_circular-motion-wave-simulation_tsx.js"
     ]
   },
   "app\\page.tsx -> ../components/wave-interference-circular-motion": {
-    "id": 4383,
+    "id": "app\\page.tsx -> ../components/wave-interference-circular-motion",
     "files": [
-      "static/chunks/49.d7b6814665a288fc.js",
-      "static/chunks/383.9b5ddecc5226a87a.js"
+      "static/chunks/_app-pages-browser_src_components_wave-interference-circular-motion_tsx.js"
     ]
   },
   "app\\page.tsx -> ../components/wave-motion/wave-motion": {
-    "id": 8995,
+    "id": "app\\page.tsx -> ../components/wave-motion/wave-motion",
     "files": [
-      "static/css/9f5495ee5a25f1b1.css",
-      "static/chunks/bdfe9574.d00edddb54799286.js",
-      "static/chunks/b536a0f1.1249f719d932f90b.js",
-      "static/chunks/411.d28232c76eec6a94.js",
-      "static/chunks/995.6627ed67fab84fd7.js"
+      "static/css/_app-pages-browser_src_components_wave-motion_wave-motion_tsx.css",
+      "static/chunks/_app-pages-browser_src_components_wave-motion_wave-motion_tsx.js"
     ]
   }
 }
